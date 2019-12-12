@@ -6,7 +6,15 @@ public class LoginHandler implements ILoginHandler {
 
 	@Override
 	public boolean performLogin(String uid, String pass) {
-		// TODO Auto-generated method stub
+		HashUtility hashUtility = new HashUtility();
+    String hashedPass = hashUtility.encrypt(pass, 12345678);
+
+    FileIO fileIO = new FileIO();
+    String[] linesFromFile = fileIO.readFromFile();
+    
+    for(String line: linesFromFile) {
+      //TODO
+    }
 		return false;
 	}
 

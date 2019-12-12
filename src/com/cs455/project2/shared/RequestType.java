@@ -1,15 +1,12 @@
 package com.cs455.project2.shared;
 
-/**
- * Indicates the type of request being transmitted
- * <p>
- * GET requests should be used when retrieving a menu of options<br>
- * POST requests should be used when responding to the menu with data
- * 
- * @author dbeaudry
- *
- */
-public enum RequestType {
-	GET_MAIN_MENU(), POST_MAIN_MENU(), GET_REGISTRATION_MENU(), POST_REGISTRATIN_MENU(), GET_PASSWORD_CHANGE_MENU(),
-	POST_PASSWORD_CHANGE_MENU(), GET_LOGIN_MENU(), POST_LOGIN_MENU();
+public class RequestType {
+  public static final String GET_MAIN_MENU = "GET_MAIN_MENU";
+  public static final String POST_MAIN_MENU = "POST_MENU_MENU";
+  public static final String GET_REGISTRATION_MENU = "GET_REG_MENU";
+  public static final String POST_REGISTRATIN_MENU = "POST_REG_MENU";
+  public static final String GET_PASSWORD_CHANGE_MENU = "GET_PASS_MENU";
+  public static final String POST_PASSWORD_CHANGE_MENU = "POST_PASS_MENU";
+  public static final String GET_LOGIN_MENU = "GET_LOGIN_MENU";
+  public static final String POST_LOGIN_MENU = "POST_LOGIN_MENU";
 }
