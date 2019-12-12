@@ -6,8 +6,7 @@ public interface IServerInterface {
 	 String providePasswordChangeMenu();
 	 String provideLoginMenu();
 	
-	 void handleMainMenuResponse(String response);
-	 void handleRegistrationMenuResponse(String response);
-	 void handlePasswordChangeResponse(String response);
-	 void handleLoginMenuResponse(String response);
+	 String handleRegistrationMenuResponse(String response);
+	 String handlePasswordChangeResponse(String response);
+	 String handleLoginMenuResponse(String response);
 }

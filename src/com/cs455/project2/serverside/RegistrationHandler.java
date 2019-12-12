@@ -11,7 +11,23 @@ public class RegistrationHandler implements IRegistrationHandler {
 	public User registerUser(String uid, String pass, String fullName, String email)
 			throws UIDAlreadyRegisteredException, EmailAlreadyRegisteredException, PasswordLengthException {
 		// TODO Auto-generated method stub
-		return null;
+		FileIO fileio = new FileIO();
+		String[] file = fileio.readFromFile();
+		//uid:pass:fullname:email
+		for(int i = 0; i <file.length;i++) {
+			String[] line = file[i].split(":");
+			if(line[0].equals(uid)) {
+				throw new UIDAlreadyRegisteredException();
+			}
+			if(line[3].equals(email)) {
+				throw new EmailAlreadyRegisteredException();
+			}
+		}
+		if(pass.length()<8) {
+			throw new PasswordLengthException();
+		}
+		
+		return new User(uid,pass,fullName,email);
 	}
 
 }

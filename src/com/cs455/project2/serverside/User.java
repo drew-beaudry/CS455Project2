@@ -35,4 +35,7 @@ public class User {
 		return email;
 	}
 
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
 }
