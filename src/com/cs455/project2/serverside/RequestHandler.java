@@ -12,7 +12,8 @@ public class RequestHandler implements IRequestHandler {
 	public void startServer() {
 		try {
 			// Create the welcoming socket at port 1111
-			ServerSocket welcomeSocket = new ServerSocket(1111);
+			@SuppressWarnings("resource")
+      ServerSocket welcomeSocket = new ServerSocket(1111);
 			System.out.println("Login Server is running");
 
 			while (true) {

@@ -23,7 +23,7 @@ public class PasswordChangeUtility implements IPasswordChangeUtility {
 			String[] line = file[userIndex].split(":");
 			if(line[0].equals(uid)) {
 				userValid = true;
-				String [] passwordSalt = line[1].split("*");
+				String [] passwordSalt = line[1].split("\\*");
 				
 				HashUtility hashutility = new HashUtility();
 				String decryptedPass = hashutility.decrypt(passwordSalt[0], Integer.parseInt(passwordSalt[1]));

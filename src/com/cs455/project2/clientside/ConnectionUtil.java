@@ -27,8 +27,13 @@ public class ConnectionUtil implements IConnectionUtil {
       //Send request
       outToServer.writeBytes(encryptedRequest + "\n");
       
-      //Wait for response from server
-      return inFromServer.readLine();
+      String returnMessage = "";
+      String line;
+      while (!(line = inFromServer.readLine()).equals("EOS")) {
+        returnMessage+=line + "\n";
+      }
+      
+      return returnMessage;
       
     } catch (IOException e) {
       // TODO Auto-generated catch block

@@ -13,47 +13,57 @@ import com.cs455.project2.serverside.api.IFileIO;
 
 public class FileIO implements IFileIO {
 
-	private static final String RESOURCES_USERS_TXT = "resources/users.txt";
+  private static final String USER_FILE_LOCATION = "resources/users.txt";
+  private File usersFile;
+
+  public FileIO() {
+    usersFile = new File(USER_FILE_LOCATION);
+  }
 
   @Override
-	public String[] readFromFile() {
-		List<String> lines = new ArrayList<>(); 
-		Scanner scanner;
-		try {
-		  scanner = new Scanner(new File(RESOURCES_USERS_TXT));
-		  while(scanner.hasNextLine()) {
-		    lines.add(scanner.nextLine());
-		  }
-		  scanner.close();
-		}catch (FileNotFoundException e) {
-		  e.printStackTrace();
-		}
-		return (String[]) lines.toArray();
-	}
+  public String[] readFromFile() {
+    List<String> lines = new ArrayList<>();
+    Scanner scanner;
+    try {
+      // Establish resources directory
+      usersFile.getParentFile().mkdirs();
+      //Create file if not already existing
+      if (!usersFile.exists()) {
+        usersFile.createNewFile();
+      }
+      scanner = new Scanner(new File(USER_FILE_LOCATION));
+      while (scanner.hasNextLine()) {
+        lines.add(scanner.nextLine());
+      }
+      scanner.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return lines.toArray(new String[lines.size()]);
+  }
 
-	@Override
-	public void appendToFile(String line) {
-	  try {
-      BufferedWriter writer = new BufferedWriter(new FileWriter(RESOURCES_USERS_TXT));
+  @Override
+  public void appendToFile(String line) {
+    try {
+      BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_LOCATION));
       writer.write(line + "\n");
       writer.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
-	}
+  }
 
-	@Override
-	public void writeToFile(String[] lines) {
-	   try {
-	      BufferedWriter writer = new BufferedWriter(new FileWriter(RESOURCES_USERS_TXT));
-	      for(String line: lines) {
-	        writer.write(line + "\n");
-	      }
-	      writer.close();
-	    } catch (IOException e) {
-	      e.printStackTrace();
-	    }
-	   //TODO This method should overwrite the file instead of appending to it
-	}
-
+  @Override
+  public void writeToFile(String[] lines) {
+    try {
+      BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_LOCATION));
+      for (String line : lines) {
+        writer.write(line + "\n");
+      }
+      writer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    // TODO This method should overwrite the file instead of appending to it
+  }
 }

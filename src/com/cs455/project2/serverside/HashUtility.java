@@ -7,13 +7,13 @@ public class HashUtility implements IHashUtility {
 	@Override
 	public String encrypt(String plainText, int salt) {
 		// TODO Auto-generated method stub
-		return null;
+		return plainText;
 	}
 
 	@Override
 	public String decrypt(String cipherText, int salt) {
 		// TODO Auto-generated method stub
-		return null;
+		return cipherText;
 	}
 
 }

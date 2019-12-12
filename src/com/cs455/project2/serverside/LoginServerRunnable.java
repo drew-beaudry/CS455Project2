@@ -28,6 +28,7 @@ public class LoginServerRunnable implements Runnable {
       processRequest();
     } catch (Exception e) {
       System.out.println(e);
+      e.printStackTrace();
     }
   }
 
@@ -47,13 +48,15 @@ public class LoginServerRunnable implements Runnable {
 
         String[] requestArray = request.split(":");
         String requestType = requestArray[0];
-        String message = requestArray[1];
+        String message = "";
+        if(requestArray.length > 1)
+          message = requestArray[1];
 
         ServerInterface serverInterface = new ServerInterface();
         String statusMessage;
         switch (requestType) {
           case RequestType.GET_MAIN_MENU:
-            String mainMenu = serverInterface.provideLoginMenu();
+            String mainMenu = serverInterface.provideMainMenu();
             outToClient.writeBytes(mainMenu);
             break;
           case RequestType.GET_REGISTRATION_MENU:
@@ -78,6 +81,7 @@ public class LoginServerRunnable implements Runnable {
             break;
           case RequestType.POST_LOGIN_MENU:
             statusMessage = serverInterface.handleLoginMenuResponse(message);
+            outToClient.writeBytes(statusMessage);
             break;
         }
       }
