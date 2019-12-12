@@ -26,13 +26,13 @@ public class ServerInterface implements IServerInterface {
 	@Override
 	public String providePasswordChangeMenu() {
 		// TODO Auto-generated method stub
-		return "Password Change: \n" + "Enter your username, old password, and new password";
+		return "Password Change: \n" + "Enter your username, old password, and new password (seperate each by comma)";
 	}
 
 	@Override
 	public String provideLoginMenu() {
 		// TODO Auto-generated method stub
-		return "Sign in: \n" + "Enter your username and password";
+		return "Sign in: \n" + "Enter your username and password (seperate each by comma)";
 	}
 
 
@@ -78,7 +78,7 @@ public class ServerInterface implements IServerInterface {
 	public String handlePasswordChangeResponse(String message) {
 		// TODO Auto-generated method stub
 		String uid, oldPass, newPass;
-		String[] input = message.split(" ");
+		String[] input = message.split(",");
 		uid = input[0];
 		oldPass = input[1];
 		newPass = input[2];
@@ -103,12 +103,12 @@ public class ServerInterface implements IServerInterface {
 	@Override
 	public String handleLoginMenuResponse(String message) {
 		LoginHandler loginHandler = new LoginHandler();
-		String[] messageArray = message.split("*");
+		String[] messageArray = message.split(",");
 		String uid = messageArray[0];
 		String pass = messageArray[1];
 
 		boolean success = loginHandler.performLogin(uid, pass);
-		return "";
+		return "Log In Success";
 	}
 
 }

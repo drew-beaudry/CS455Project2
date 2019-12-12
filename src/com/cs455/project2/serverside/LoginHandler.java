@@ -6,16 +6,25 @@ public class LoginHandler implements ILoginHandler {
 
 	@Override
 	public boolean performLogin(String uid, String pass) {
-		HashUtility hashUtility = new HashUtility();
-    String hashedPass = hashUtility.encrypt(pass, 12345678);
+		FileIO fileIO = new FileIO();
+		String[] file = fileIO.readFromFile();
+		boolean loginStatus = false;
+		int userIndex = 0;
+		for (userIndex = 0; userIndex < file.length; userIndex++) {
+			String[] line = file[userIndex].split(":");
+			if (line[0].equals(uid)) {
+				String[] passwordSalt = line[1].split("*");
+				HashUtility hashutility = new HashUtility();
+				String decryptedPass = hashutility.decrypt(passwordSalt[0], Integer.parseInt(passwordSalt[1]));
+				if (decryptedPass.equals(pass)) {
+					loginStatus = true;
+					break;
+				}
+			}
+		}
+		
+		return loginStatus;
 
-    FileIO fileIO = new FileIO();
-    String[] linesFromFile = fileIO.readFromFile();
-    
-    for(String line: linesFromFile) {
-      //TODO
-    }
-		return false;
 	}
 
 }
