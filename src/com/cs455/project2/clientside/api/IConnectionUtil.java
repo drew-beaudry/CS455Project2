@@ -1,7 +1,5 @@
 package com.cs455.project2.clientside.api;
 
-import com.cs455.project2.shared.RequestTypeEnum;
-
 public interface IConnectionUtil {
 	/**
 	 * Connect to server and send provided request
@@ -10,5 +8,5 @@ public interface IConnectionUtil {
 	 * @param request
 	 * @return response from server
 	 */
-	String performRequest(RequestTypeEnum requestType, String request);
+	String performRequest(String requestType, String request);
 }

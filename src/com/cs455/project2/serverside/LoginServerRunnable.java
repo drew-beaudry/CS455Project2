@@ -50,31 +50,34 @@ public class LoginServerRunnable implements Runnable {
         String message = requestArray[1];
 
         ServerInterface serverInterface = new ServerInterface();
-        
+        String statusMessage;
         switch (requestType) {
           case RequestType.GET_MAIN_MENU:
             String mainMenu = serverInterface.provideLoginMenu();
-            break;
-          case RequestType.POST_MAIN_MENU:
-            serverInterface.handleMainMenuResponse(message);
+            outToClient.writeBytes(mainMenu);
             break;
           case RequestType.GET_REGISTRATION_MENU:
             String registrationMenu = serverInterface.provideRegistrationMenu();
+            outToClient.writeBytes(registrationMenu);
             break;
-          case RequestType.POST_REGISTRATIN_MENU:
-            serverInterface.handleRegistrationMenuResponse(message);
+          case RequestType.POST_REGISTRATION_MENU:
+            statusMessage = serverInterface.handleRegistrationMenuResponse(message);
+            outToClient.writeBytes(statusMessage);
             break;
           case RequestType.GET_PASSWORD_CHANGE_MENU:
             String passwordChangeMenu = serverInterface.providePasswordChangeMenu();
+            outToClient.writeBytes(passwordChangeMenu);
             break;
           case RequestType.POST_PASSWORD_CHANGE_MENU:
-            serverInterface.handlePasswordChangeResponse(message);
+            statusMessage = serverInterface.handlePasswordChangeResponse(message);
+            outToClient.writeBytes(statusMessage);
             break;
           case RequestType.GET_LOGIN_MENU:
             String loginMenu = serverInterface.provideLoginMenu();
+            outToClient.writeBytes(loginMenu);
             break;
           case RequestType.POST_LOGIN_MENU:
-            serverInterface.handleLoginMenuResponse(message);
+            statusMessage = serverInterface.handleLoginMenuResponse(message);
             break;
         }
       }
