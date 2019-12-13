@@ -9,7 +9,7 @@ public class ClientMain {
     while (true) {
       ClientInterface clientInterface = new ClientInterface();
       clientInterface.handleUserInput();
-       
+      
     }
   }
 }

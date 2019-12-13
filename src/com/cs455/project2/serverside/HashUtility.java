@@ -10,22 +10,29 @@ public class HashUtility implements IHashUtility {
 
 	@Override
 	public String encrypt(String plainText, int salt) {
-		// TODO Auto-generated method stub
+		//Gets plain text and salt and encrypts 
 		String cipherText = "";
 		MessageDigest digest;
 		plainText += salt;
 		try {
+			//Create SHA-256 Digest
 			digest = MessageDigest.getInstance("SHA-256");
+			//Encode Hash to Byte Array
 			byte[] encodedhash = digest.digest(plainText.getBytes(StandardCharsets.UTF_8));
+			//Convert byte array to String
 			cipherText = bytesToHex(encodedhash);
 			} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return cipherText;
 	}
 	
+	/**
+	 * Convert byte array to String
+	 * @param byte[]
+	 * @return String
+	 */
 	private String bytesToHex(byte[] hash) {
 	    StringBuffer hexString = new StringBuffer();
 	    for (int i = 0; i < hash.length; i++) {

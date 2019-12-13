@@ -12,13 +12,37 @@ public class GuessingGame {
 	}
 
 	public void startGame() {
-		
+		//Game to guess random number
+		//generates random number for user to guess
 		Random random = new Random();
 		int rand = random.nextInt(99)+1;
-		System.out.println(rand);
+		int guesses = 0;
+		boolean game = false;
 		
-		Scanner scanner = new Scanner(s);
-	      //int userGuess 
+		System.out.println("Enter a number between 1 and 100");
+		while(!game) {
+		Scanner scanner = new Scanner(System.in);
+	    int userIn = scanner.nextInt();
+	    //checks if user input is correct number and gives feedback
+		if(rand>userIn) {
+			System.out.println("Higher!");
+			guesses++;
+		}
+		if(rand<userIn) {
+			System.out.println("Lower!");
+			guesses++;
+		}
+		//outputs number of guesses if they win. 
+		if(userIn==rand) {
+			guesses++;
+			System.out.println("You win! it took you "  + guesses + " guesses");
+			game = true;
+		}
+		
+		
+		}
+	    
+	    
 	}
 
 }
