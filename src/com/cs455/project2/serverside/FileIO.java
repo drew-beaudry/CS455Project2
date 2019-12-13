@@ -45,7 +45,7 @@ public class FileIO implements IFileIO {
   @Override
   public void appendToFile(String line) {
     try {
-      BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_LOCATION));
+      BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_LOCATION,true));
       writer.write(line + "\n");
       writer.close();
     } catch (IOException e) {
@@ -55,15 +55,15 @@ public class FileIO implements IFileIO {
 
   @Override
   public void writeToFile(String[] lines) {
-    try {
-      BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_LOCATION));
+    //clear contents of file
+	  try {
+      BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_LOCATION,false));
       for (String line : lines) {
         writer.write(line + "\n");
       }
       writer.close();
     } catch (IOException e) {
       e.printStackTrace();
-    }
-    // TODO This method should overwrite the file instead of appending to it
+    }  
   }
 }

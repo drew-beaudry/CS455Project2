@@ -16,12 +16,4 @@ public interface IHashUtility {
 	 */
 	String encrypt(String plainText, int salt);
 
-	/**
-	 * Decrypt the provided ciphertext
-	 * 
-	 * @param cipherText
-	 * @param salt
-	 * @return ciphertext decrypted with provided salt
-	 */
-	String decrypt(String cipherText, int salt);
 }

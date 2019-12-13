@@ -14,14 +14,20 @@ public class RegistrationHandler implements IRegistrationHandler {
 		FileIO fileio = new FileIO();
 		String[] file = fileio.readFromFile();
 		//uid:pass:fullname:email
+		
+		if(file.length>0) {
 		for(int i = 0; i <file.length;i++) {
+			
 			String[] line = file[i].split(":");
+			if(line.length==4) {
 			if(line[0].equals(uid)) {
 				throw new UIDAlreadyRegisteredException();
 			}
 			if(line[3].equals(email)) {
 				throw new EmailAlreadyRegisteredException();
 			}
+			}
+		}
 		}
 		if(pass.length()<8) {
 			throw new PasswordLengthException();

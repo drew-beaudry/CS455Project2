@@ -26,8 +26,8 @@ public class PasswordChangeUtility implements IPasswordChangeUtility {
 				String [] passwordSalt = line[1].split("\\*");
 				
 				HashUtility hashutility = new HashUtility();
-				String decryptedPass = hashutility.decrypt(passwordSalt[0], Integer.parseInt(passwordSalt[1]));
-				if(decryptedPass.equals(oldPass)) {
+				String encryptedPass = hashutility.encrypt(oldPass, Integer.parseInt(passwordSalt[1]));
+				if(passwordSalt[0].equals(encryptedPass)) {
 					passValid = true;
 					break;
 				}

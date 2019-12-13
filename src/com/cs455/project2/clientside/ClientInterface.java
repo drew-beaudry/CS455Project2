@@ -80,8 +80,17 @@ public class ClientInterface implements IClientInterface {
 
     // Output the result from the performed operation
     System.out.println(statusMessage);
+    if(statusMessage.contains("Log In Success")) {
+    	StartGame();
+    }
   }
-
+  
+  private void StartGame() {
+	  System.out.println("Starting Game...");
+	  GuessingGame guessingGame = new GuessingGame();
+	  guessingGame.startGame();
+  }
+  
   @Override
   public boolean validateUserInput(String requestType, String input) {
     String[] inputArray;
