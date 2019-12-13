@@ -2,6 +2,8 @@ package com.cs455.project2.serverside;
 
 import java.util.Random;
 
+import com.cs455.project2.serverside.api.IFileIO;
+import com.cs455.project2.serverside.api.IHashUtility;
 import com.cs455.project2.serverside.api.IPasswordChangeUtility;
 import com.cs455.project2.serverside.exception.InvalidPasswordException;
 import com.cs455.project2.serverside.exception.PasswordLengthException;
@@ -13,7 +15,7 @@ public class PasswordChangeUtility implements IPasswordChangeUtility {
 	public void changePassword(String uid, String newPass, String oldPass)
 			throws UIDNotFoundException, InvalidPasswordException, PasswordLengthException {
 		//reads in file
-		FileIO fileio = new FileIO();
+		IFileIO fileio = new FileIO();
 		String[] file = fileio.readFromFile();
 		//uid:pass:fullname:email
 		boolean userValid = false;
@@ -26,7 +28,7 @@ public class PasswordChangeUtility implements IPasswordChangeUtility {
 				userValid = true;
 				String [] passwordSalt = line[1].split("\\*");
 				//encrypts user input and checks to see if it matches passsword saved in file
-				HashUtility hashutility = new HashUtility();
+				IHashUtility hashutility = new HashUtility();
 				String encryptedPass = hashutility.encrypt(oldPass, Integer.parseInt(passwordSalt[1]));
 				if(passwordSalt[0].equals(encryptedPass)) {
 					passValid = true;
@@ -46,9 +48,10 @@ public class PasswordChangeUtility implements IPasswordChangeUtility {
 			throw new PasswordLengthException();
 		}
 		
-		HashUtility hashUtil = new HashUtility();
+		IHashUtility hashUtil = new HashUtility();
 		//generates salt
 		int salt = (new Random()).nextInt(90000000) + 10000000;
+		//Encrypt password with salt
 		String hashedPass = hashUtil.encrypt(newPass, salt);
 		//saves new password to string and writes to file
 		String[] line = file[userIndex].split(":");

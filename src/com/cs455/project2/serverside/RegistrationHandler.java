@@ -1,5 +1,6 @@
 package com.cs455.project2.serverside;
 
+import com.cs455.project2.serverside.api.IFileIO;
 import com.cs455.project2.serverside.api.IRegistrationHandler;
 import com.cs455.project2.serverside.exception.EmailAlreadyRegisteredException;
 import com.cs455.project2.serverside.exception.PasswordLengthException;
@@ -11,7 +12,7 @@ public class RegistrationHandler implements IRegistrationHandler {
 	public User registerUser(String uid, String pass, String fullName, String email)
 			throws UIDAlreadyRegisteredException, EmailAlreadyRegisteredException, PasswordLengthException {
 		//reads in file
-		FileIO fileio = new FileIO();
+		IFileIO fileio = new FileIO();
 		String[] file = fileio.readFromFile();
 		//uid:pass:fullname:email
 		if(file.length>0) {

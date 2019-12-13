@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 import com.cs455.project2.clientside.api.IConnectionUtil;
+import com.cs455.project2.serverside.exception.ReplayException;
 import com.cs455.project2.shared.EncryptDecryptString;
+import com.cs455.project2.shared.MessageIDCounter;
 public class ConnectionUtil implements IConnectionUtil {
 
 	@Override
@@ -22,24 +24,31 @@ public class ConnectionUtil implements IConnectionUtil {
       //Declare output stream
       DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
       
+      //Get next nonce
+      int nonce = MessageIDCounter.getInstance().getNextNonce();
+      
       //Encrypt RequestType + Request
-      String encryptedRequest = EncryptDecryptString.encrypt(requestType + ":" + request);
+      String encryptedRequest = EncryptDecryptString.encrypt(nonce + ":" + requestType + ":" + request);
       //Send request
       outToServer.writeBytes(encryptedRequest + "\n");
       
-      String returnMessage = "";
-      String line;
-      while (!(line = inFromServer.readLine()).equals("EOS")) {
-        returnMessage+=line + "\n";
+      //Get encrypted response back from server
+      String encryptedResponse = inFromServer.readLine();
+      //Decrypt Response
+      String plaintextResponse =  EncryptDecryptString.decrypt(encryptedResponse);
+      //Split response to gain nonce value
+      String[] responseArray = plaintextResponse.split("\\*");
+      try {
+        //Check nonce
+        MessageIDCounter.getInstance().checkAndSetNonce(Integer.parseInt(responseArray[0]));
+        //Return message
+        return responseArray[1];
+      } catch (NumberFormatException | ReplayException e) {
+        e.printStackTrace();
       }
-      
-      return returnMessage;
-      
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 		return null;
 	}
-
 }

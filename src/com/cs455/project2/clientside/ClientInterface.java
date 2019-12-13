@@ -45,7 +45,6 @@ public class ClientInterface implements IClientInterface {
             throw new Exception();
         }
       } catch (Exception e) {
-        e.printStackTrace();
         System.out.println("Please input an integer");
         continue;
       }
@@ -81,11 +80,11 @@ public class ClientInterface implements IClientInterface {
     // Output the result from the performed operation
     System.out.println(statusMessage);
     if(statusMessage.contains("Log In Success")) {
-    	StartGame();
+    	startGame();
     }
   }
   
-  private void StartGame() {
+  private void startGame() {
 	  System.out.println("Starting Game...");
 	  GuessingGame guessingGame = new GuessingGame();
 	  guessingGame.startGame();

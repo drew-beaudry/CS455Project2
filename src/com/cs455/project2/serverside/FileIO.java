@@ -2,7 +2,6 @@ package com.cs455.project2.serverside;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +10,9 @@ import java.util.Scanner;
 
 import com.cs455.project2.serverside.api.IFileIO;
 
+/**
+ * Reads and writes from the password file
+ */
 public class FileIO implements IFileIO {
 
   private static final String USER_FILE_LOCATION = "resources/users.txt";
@@ -27,7 +29,7 @@ public class FileIO implements IFileIO {
     try {
       // Establish resources directory
       usersFile.getParentFile().mkdirs();
-      //Create file if not already existing
+      // Create file if not already existing
       if (!usersFile.exists()) {
         usersFile.createNewFile();
       }
@@ -45,7 +47,7 @@ public class FileIO implements IFileIO {
   @Override
   public void appendToFile(String line) {
     try {
-      BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_LOCATION,true));
+      BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_LOCATION, true));
       writer.write(line + "\n");
       writer.close();
     } catch (IOException e) {
@@ -55,15 +57,15 @@ public class FileIO implements IFileIO {
 
   @Override
   public void writeToFile(String[] lines) {
-    //clear contents of file
-	  try {
-      BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_LOCATION,false));
+    // clear contents of file
+    try {
+      BufferedWriter writer = new BufferedWriter(new FileWriter(USER_FILE_LOCATION, false));
       for (String line : lines) {
         writer.write(line + "\n");
       }
       writer.close();
     } catch (IOException e) {
       e.printStackTrace();
-    }  
+    }
   }
 }
